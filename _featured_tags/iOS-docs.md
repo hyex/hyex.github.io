@@ -1,8 +1,8 @@
 ---
 layout: tag-blog
-title: Review
-slug: review
-category: review
+title: Docs
+slug: docs
+category: iOS
 menu: false
 order: 1
 ---
