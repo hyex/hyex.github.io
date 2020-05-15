@@ -8,9 +8,9 @@ categories: algorithm
 ## 개요
 > DFS, BFS 자료구조에 대해 공부합니다.
 
-- 목차
-	- [DFS(Depth-First-Search, 깊이 우선 탐색)](#dfsdepth-first-search-깊이-우선-탐색)
-	- [BFS(Breath-First-Search, 너비 우선 탐색))](#bfsbreathfirstsearch-너비-우선-탐색)
+- 목차 <!-- 링크 걸기 실패 -->
+	- [DFS(Depth-First-Search, 깊이 우선 탐색)](#dfsdepth-first-search-깊이-우선-탐색) 
+	- [BFS(Breath-First-Search, 너비 우선 탐색)](#bfsbreathfirstsearch-너비-우선-탐색)
 
 ## DFS(Depth FirstSearch, 깊이 우선 탐색)
 
