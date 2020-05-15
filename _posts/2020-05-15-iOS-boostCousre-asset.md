@@ -1,10 +1,13 @@
 ---
 layout: post
-title:  "Asset"
-date:   2020-05-015 20:21:00 +0900
+title:  "Asset catalog"
+date:   2020-05-15 20:21:00 +0900
 categories: iOS
+tags: boostCourse
 ---
-# Asset
+
+## 개요
+> 에셋 카탈로그에 대해 공부합니다.
 
 ## Asset.xcassets (에셋 카탈로그)
 에셋 카탈로그는 에셋과 다양한 디바이스의 속성에 대한 파일의 연결(mapping)을 통해서 애플리케이션 리소스에 쉽게 접근할 수 있도록 해준다.
