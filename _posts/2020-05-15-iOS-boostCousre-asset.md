@@ -2,7 +2,7 @@
 layout: post
 title:  "Asset"
 date:   2020-05-015 20:21:00 +0900
-categories: algorithm
+categories: iOS
 ---
 # Asset
 
