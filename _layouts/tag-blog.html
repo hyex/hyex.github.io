@@ -4,8 +4,22 @@ layout: base
 
 {% assign posts = site.tags[page.slug] | where: "categories", page.category %}
 
+
+{% if page.title.size > 0 %}
+  <header>
+    <h1 class="page-title">{{ page.title }}</h1>
+  </header>
+  <div class="hr" style="padding-bottom:0"></div>
+{% endif %}
+
 {% for post in posts %}
-  {% include post.html post=post link_title=true excerpt=true %}
+  <ul class="related-posts">
+    {% include post-list-item.html post=post format="%d %b" %}
+  </ul>
 {% endfor %}
 
-{% include pagination.html %}
+<!-- {% for post in posts %}
+  {% include post.html post=post link_title=true excerpt=true %}
+{% endfor %} -->
+
+<!-- {% include pagination.html %} -->
