@@ -7,8 +7,8 @@ tags: boostCourse
 ---
 
 ## 개요
-> * 프로그래밍 디자인 패턴이란?
-> * Model-View-Controller
+> * [프로그래밍 디자인 패턴](#프로그래밍-디자인-패턴)
+> * [Model-View-Controller](#model-view-controller)
 
 
 ---
