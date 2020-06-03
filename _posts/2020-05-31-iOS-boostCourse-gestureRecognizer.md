@@ -68,7 +68,7 @@ tags: boostCourse
 
 ## 참고 링크
 
-[UIGestureRecognizer - UIKit | Apple Developer Documentation](https://developer.apple.com/documentation/uikit/uigesturerecognizer )
+[UIGestureRecognizer - UIKit | Apple Developer Documentation](https://developer.apple.com/documentation/uikit/uigesturerecognizer)
 
 [Gestures - User Interaction - iOS Human Interface Guidelines](https://developer.apple.com/ios/human-interface-guidelines/user-interaction/gestures/)
 
