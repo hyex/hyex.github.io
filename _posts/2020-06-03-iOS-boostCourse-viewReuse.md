@@ -30,7 +30,6 @@ UITableViewCell과 UICollectionViewCell 등이 있다.
 
 [UITableView - UIKit - Apple Developer Documentation](https://developer.apple.com/documentation/uikit/uitableview)
 
-
 [UICollectionView - UIKit - Apple Developer Documentation](https://developer.apple.com/documentation/uikit/uicollectionview)
 
-
+[dequeueReusableCell(withIdentifier:for:) - UITableView - Apple Developer Documentation](https://developer.apple.com/documentation/uikit/uitableview/1614878-dequeuereusablecell)
