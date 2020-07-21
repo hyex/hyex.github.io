@@ -459,3 +459,183 @@ rules:
 <b>Notes</b> : 플러그인에서 규칙을 지정할 때 `eslint-plugin-`을 생략하십시오. ESLint는 내부적으로 접두사없이 이름을 사용하여 규칙을 찾습니다.
 
 ## Disabling Rules with Inline Comments
+
+파일에서 규칙 경고를 일시적으로 비활성화하려면 다음 형식의 블록 주석을 사용하십시오.
+
+```
+/* eslint-disable */
+
+alert('foo');
+
+/* eslint-enable */
+
+```
+
+특정 규칙에 대한 경고를 비활성화하거나 활성화 할 수도 있습니다.
+
+```
+/* eslint-disable no-alert, no-console */
+
+alert('foo');
+console.log('bar');
+
+/* eslint-enable no-alert, no-console */
+
+```
+
+전체 파일에서 규칙 경고를 비활성화하려면 파일 맨 위에`/ * eslint-disable * /`블록 주석을 추가하십시오.
+
+```
+/* eslint-disable */
+
+alert('foo');
+
+```
+
+전체 파일에 대해 특정 규칙을 비활성화하거나 활성화 할 수도 있습니다.
+
+```
+/* eslint-disable no-alert */
+
+alert('foo');
+
+```
+
+특정 라인에서 모든 규칙을 비활성화하려면 다음 형식 중 하나의 라인 또는 블록 주석을 사용하십시오.
+
+```
+alert('foo'); // eslint-disable-line
+
+// eslint-disable-next-line
+alert('foo');
+
+/* eslint-disable-next-line */
+alert('foo');
+
+alert('foo'); /* eslint-disable-line */
+
+```
+
+특정 줄에서 특정 규칙을 비활성화하려면
+
+```
+alert('foo'); // eslint-disable-line no-alert
+
+// eslint-disable-next-line no-alert
+alert('foo');
+
+alert('foo'); /* eslint-disable-line no-alert */
+
+/* eslint-disable-next-line no-alert */
+alert('foo');
+
+```
+
+특정 줄에서 여러 규칙을 비활성화하려면
+
+```
+alert('foo'); // eslint-disable-line no-alert, quotes, semi
+
+// eslint-disable-next-line no-alert, quotes, semi
+alert('foo');
+
+alert('foo'); /* eslint-disable-line no-alert, quotes, semi */
+
+/* eslint-disable-next-line no-alert, quotes, semi */
+alert('foo');
+
+```
+
+위의 모든 방법은 플러그인 규칙에도 적용됩니다. 예를 들어,`eslint-plugin-example`의`rule-name` 규칙을 비활성화하려면 플러그인 이름 (`example`)과 규칙 이름 (`rule-name`)을`example / rule-name`으로 결합하십시오.
+
+```
+foo(); // eslint-disable-line example/rule-name
+foo(); /* eslint-disable-line example/rule-name */
+
+```
+
+구성 주석에는 주석이 필요한 이유를 설명하는 description이 포함될 수 있습니다. description은 구성 후에 발생해야하며 두 개 이상의 연속`-` 문자로 구성과 분리됩니다. 예를 들면 다음과 같습니다.
+
+```
+// eslint-disable-next-line no-console -- Here's a description about why this configuration is necessary.
+console.log('hello');
+
+```
+
+**Note:**  파일의 일부에 대해 경고를 비활성화하는 주석은 ESLint에 비활성화 된 코드에 대한 규칙 위반을 보고하지 않도록 지시합니다. ESLint는 여전히 전체 파일을 구문 분석하므로 비활성화 된 코드는 여전히 구문 상 유효한 JavaScript 여야합니다.
+
+### Disabling Rules Only for a Group of Files
+
+파일 그룹에 대한 구성 파일 내 규칙을 비활성화하려면`overrides` 키와`files` 키를 사용하십시오. 예를 들면 다음과 같습니다.
+
+```
+{
+  "rules": {...},
+  "overrides": [
+    {
+      "files": ["*-test.js","*.spec.js"],
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ]
+}
+
+```
+
+
+## Configuring Inline Comment Behaviors
+
+### Disabling Inline Comments
+
+모든 인라인 설정 주석을 비활성화하려면`noInlineConfig` 설정을 사용하십시오. 예를 들면 다음과 같습니다.
+
+```
+{
+  "rules": {...},
+  "noInlineConfig": true
+}
+
+```
+이 설정은  [--no-inline-config](https://eslint.org/docs/user-guide/command-line-interface#--no-inline-config)  CLI 옵션과 비슷합니다.
+
+### Report Unused  `eslint-disable`  Comments
+
+사용하지 않는`eslint-disable` 주석을보고하려면`reportUnusedDisableDirectives` 설정을 사용하십시오. 예를 들면 다음과 같습니다.
+
+```
+{
+  "rules": {...},
+  "reportUnusedDisableDirectives": true
+}
+
+```
+
+이 설정은   [--report-unused-disable-directives](https://eslint.org/docs/user-guide/command-line-interface#--report-unused-disable-directives)  CLI 옵션과 유사합니다. lint가 나지 않습니다 ( `"warn"` 심각도로 보고함).
+
+
+## Adding Shared Settings
+
+ESLint는 구성 파일에 공유 설정 추가를 지원합니다. ESLint 구성 파일에 `settings` 객체를 추가 할 수 있으며 실행되는 모든 규칙에 제공됩니다. 사용자 지정 규칙을 추가하고 동일한 정보에 액세스하고 쉽게 구성 할 수 있도록하려는 경우 유용 할 수 있습니다.
+
+In JSON:
+
+```js
+{
+    "settings": {
+        "sharedData": "Hello"
+    }
+}
+
+```
+
+And in YAML:
+
+```yaml
+---
+  settings:
+    sharedData: "Hello"
+
+```
+
+## Using Configuration Files
