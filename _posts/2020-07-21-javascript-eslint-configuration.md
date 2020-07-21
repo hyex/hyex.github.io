@@ -275,3 +275,187 @@ YAML:
 <b>Note</b>: 코드에서 read-only 전역 변수에 대한 수정을 허용하지 않으려면 no-global-assign	규칙을 활성화하십시오.
 
 ## Configuring Plugins
+
+ESLint는 third-party(타사) 플러그인의 사용을 지원합니다. 플러그인을 사용하기 전에, npm을 사용하여 플러그인을 설치해야 합니다.
+
+구성 파일 내부에서 플러그인을 구성하려면, `plugins` 키를 사용하세요. 플러그인 이름의 리스트를 가지는 키입니다. `eslint-plugin-` 접두사는 플러그인 이름에서 생략할 수 있습니다.
+```js
+{
+    "plugins": [
+        "plugin1",
+        "eslint-plugin-plugin2"
+    ]
+}
+```
+YAML:
+```yaml
+---
+  plugins:
+    - plugin1
+    - eslint-plugin-plugin2
+```
+
+<b>Notes</b>:
+1. 플러그인은 구성 파일을 기준으로 해결됩니다. 즉, ESLint는 구성 파일에서 `require('eslint-plugin-plugnname')`을 실행하여 사용자가 얻는 것처럼 플러그인을 로드합니다. 
+2. 기본 구성의 플러그인(`extends` 설정에 의해 로드되는)은 파생된 구성 파일에 상대적입니다. 예를 들어 `./.eslintrc`이 `extends: ["foo"]`이고 `eslint-config-foo`의 플러그인이 `plugins: ["bar"]`인 경우 ESLint는 `./node_modules/`에서 `eslint-plugin-bar`(./node_modules/eslint-config-foo/node_modules/ 보다) 또는 상위 디렉토리를 찾습니다.. 따라서 구성 파일 및 기본 구성의 모든 플러그인이 고유하게 해결됩니다.
+
+### Naming Convention
+#### Include a Plugin
+`eslint-plugin-` 접두사는 범위가 없는 패키지에서 생략될 수 있습니다.
+```js
+{
+    // ...
+    "plugins": [
+        "jquery", // means eslint-plugin-jquery
+    ]
+    // ...
+}
+```
+범위가 있는 패키지에도 같은 규칙이 적용됩니다.
+```js
+{
+    // ...
+    "plugins": [
+        "@jquery/jquery", // means @jquery/eslint-plugin-jquery
+        "@foobar" // means @foobar/eslint-plugin
+    ]
+    // ...
+}
+```
+
+#### Use a Plugin
+플러그인으로 정의된 규칙, 환경 또는 구성을 사용하는 경우, 다음과 같은 convention(관습)을 참조해야 합니다.
+
+-   `eslint-plugin-foo`  →  `foo/a-rule`
+-   `@foo/eslint-plugin`  →  `@foo/a-config`
+-   `@foo/eslint-plugin-bar`  →  `@foo/bar/a-environment`
+
+예를 들면 다음과 같습니다:
+```js
+{
+    // ...
+    "plugins": [
+        "jquery",   // eslint-plugin-jquery
+        "@foo/foo", // @foo/eslint-plugin-foo
+        "@bar"      // @bar/eslint-plugin
+    ],
+    "extends": [
+        "plugin:@foo/foo/recommended",
+        "plugin:@bar/recommended"
+    ],
+    "rules": {
+        "jquery/a-rule": "error",
+        "@foo/foo/some-rule": "error",
+        "@bar/another-rule": "error"
+    },
+    "env": {
+        "jquery/jquery": true,
+        "@foo/foo/env-foo": true,
+        "@bar/env-bar": true,
+    }
+    // ...
+}
+```
+
+## Configuring Rules
+ESLint에는 많은 규칙이 있습니다. 구성 주석 또는 구성 파일을 사용하여 프로젝트에서 사용하는 규칙을 수정할 수 있습니다. 규칙 설정을 변경하려면 규칙 ID를 다음 값 중 하나와 동일하게 설정해야합니다.
+
+-   `"off"`  or  `0`  - turn the rule off
+-   `"warn"`  or  `1`  - turn the rule on as a warning (doesn't affect exit code)
+-   `"error"`  or  `2`  - turn the rule on as an error (exit code is 1 when triggered)
+
+### Using Configuration Comments
+구성 주석을 사용하여 파일 내부에서 규칙을 구성하려면 다음 형식의 주석을 사용하십시오.
+```js
+/* eslint eqeqeq: "off", curly: "error" */
+
+```
+이 예제에서,  [`eqeqeq`](https://eslint.org/docs/rules/eqeqeq)  가 해제되고 [`curly`](https://eslint.org/docs/rules/curly) 가 error로 설정됩니다. 규칙 심각도에 따라 해당하는 숫자를 사용할 수 있습니다.
+```js
+/* eslint eqeqeq: 0, curly: 2 */
+
+```
+이 예제는 마지막 예제와 동일하며 문자열 값 대신 숫자 코드 만 사용합니다. `eqeqeq`  규칙이 꺼져 있고 `curly` 규칙이 error로 설정되어 있습니다.
+
+규칙에 추가 옵션이 있는 경우, 다음과 같은 배열 리터럴 구문을 사용하여 지정할 수 있습니다:
+```js
+/* eslint quotes: ["error", "double"], curly: 2 */
+
+```
+이 주석은  [`quotes(인용)`](https://eslint.org/docs/rules/quotes) 규칙에 대한 "이중"옵션을 지정합니다. 배열의 첫 번째 항목은 항상 규칙 심각도(숫자 또는 문자열)입니다.
+
+구성 주석에는 주석이 필요한 이유를 설명하는 description이 포함될 수 있습니다. 주석은 구성 후에 발생해야하며 두 개 이상의 연속   `-`  문자로 구성과 구분됩니다. 예를 들면 다음과 같습니다:
+```js
+/* eslint eqeqeq: "off", curly: "error" -- Here's a description about why this configuration is necessary. */
+
+```
+
+```js
+/* eslint eqeqeq: "off", curly: "error"
+    --------
+    Here's a description about why this configuration is necessary. */
+
+```
+
+```js
+/* eslint eqeqeq: "off", curly: "error"
+ * --------
+ * This will not work due to the line above starting with a '*' character.
+ */
+```
+
+### Using Configuration Files
+구성 파일 내에서 규칙을 구성하려면 오류 수준 및 사용하려는 옵션과 함께 `rules` 키를 사용하십시오. 예를 들면 다음과 같습니다:
+```js
+{
+    "rules": {
+        "eqeqeq": "off",
+        "curly": "error",
+        "quotes": ["error", "double"]
+    }
+}
+```
+YAML:
+```yaml
+---
+rules:
+  eqeqeq: off
+  curly: error
+  quotes:
+    - error
+    - double
+```
+플러그인 내에 정의 된 규칙을 구성하려면 규칙 ID 앞에 플러그인 이름과 `/`를 붙여야합니다. 예를 들면 다음과 같습니다:
+```js
+{
+    "plugins": [
+        "plugin1"
+    ],
+    "rules": {
+        "eqeqeq": "off",
+        "curly": "error",
+        "quotes": ["error", "double"],
+        "plugin1/rule1": "error"
+    }
+}
+```
+YAML:
+```yaml
+---
+plugins:
+  - plugin1
+rules:
+  eqeqeq: 0
+  curly: error
+  quotes:
+    - error
+    - "double"
+  plugin1/rule1: error
+```
+이 구성 파일에서, `plugin1 / rule1` 규칙은 `plugin1`이라는 플러그인에서 가져옵니다. 다음과 같은 구성 설명과 함께이 형식을 사용할 수도 있습니다.
+```js
+/* eslint "plugin1/rule1": "error" */
+```
+<b>Notes</b> : 플러그인에서 규칙을 지정할 때 `eslint-plugin-`을 생략하십시오. ESLint는 내부적으로 접두사없이 이름을 사용하여 규칙을 찾습니다.
+
+## Disabling Rules with Inline Comments
