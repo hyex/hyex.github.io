@@ -2,7 +2,7 @@
 layout: tag-blog
 title: Node.js
 slug: nodejs
-category: nodejs
+category: javascript
 menu: false
 order: 1
 ---
