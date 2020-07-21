@@ -2,7 +2,8 @@
 layout: post
 title:  "[EGoing의 Node.js] 시작"
 date:   2020-07-08 17:17:00 +0900
-categories: nodejs
+categories: javascript
+tags: nodejs
 ---
 # WEB2 Node.js
 
