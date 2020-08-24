@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Modern JS Tutorial] Part 1"
+title:  "[Modern JS Tutorial] Part 1.1"
 date:   2020-08-24 18:26:00 +0900
 categories: javascript
 ---
