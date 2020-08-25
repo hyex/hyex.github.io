@@ -1,11 +1,11 @@
 ---
 layout: post
-title:  "[Modern JS Tutorial] Part 1.1"
+title:  "[M.JS.T Part1] 1. 소개"
 date:   2020-08-24 18:26:00 +0900
 categories: javascript
 ---
 
-# Part 1. 코어 자바스크립트
+# Part 1. 코어 자바스크립트 1. 소개
 [Link](https://ko.javascript.info/)
 
 ## 1.1 자바스크립트란?
