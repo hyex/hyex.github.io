@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[OpenSource Contribution] Eslint-plugin-jsdoc #569 (first)"
-date:   2020-09-08 01:47:00 +0900
+date:   2020-09-10 00:13:00 +0900
 categories: unclassified
 ---
 
