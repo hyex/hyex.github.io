@@ -26,18 +26,18 @@ categories: unclassified
 2. **메인테이너가 굉장히 활발하다.** 몇 주 전에 다른 플러그인에 먼저 PR을 보냈으나, 아직 코멘트가 달리지 않았다. 반면 이 플러그인에 보낸 PR은 당일, 1시간 정도후에 바로 코멘트가 달렸으며 이후에도 빠른 상호소통이 가능했다. 뿐만 아니라 대기중인 PR의 개수가 매우 적고 commit log가 계속 업데이트되는 게 보였다.
  
  
- ## Issue 해결 순서
- 
- 1. issue 이해하기
- 2. 개발 환경 준비 (fork, clone, branch 생성, `npm install`)
- 3. 프로젝트 디렉토리 파악
- 4. Testing
-	  - 전체 테스팅, 단일 파일 테스팅
-	  - 테스트 케이스 추가
- 5. 기능 구현/버그 수정 (크롬 디버깅)
- 6. 테스트 케이스 추가
- 7. Docs 수정
- 8. PR !
+## Issue 해결 순서
+
+1. issue 이해하기
+2. 개발 환경 준비 (fork, clone, branch 생성, `npm install`)
+3. 프로젝트 디렉토리 파악
+4. Testing
+	- 전체 테스팅, 단일 파일 테스팅
+	- 테스트 케이스 추가
+5. 기능 구현/버그 수정 (크롬 디버깅)
+6. 테스트 케이스 추가
+7. Docs 수정
+8. PR !
 
 대략 이런 순서로 Issue를 해결했다. 단일 파일 테스팅이나 크롬 디버깅하는 게 각 프로젝트마다 명령어가 달라서 어려움을 겪었고, 거의 멘토님이 해결해주셨다 ㅎㅎ *(대부분 `babel-register` 쪽 문제였다. 더 공부하기!)*
  
@@ -45,7 +45,13 @@ categories: unclassified
 
 **이슈 [#569]([https://github.com/gajus/eslint-plugin-jsdoc/issues/569](https://github.com/gajus/eslint-plugin-jsdoc/issues/569)) 은 `require-param` 규칙에서 destructuring 된 파라미터에 대해 타입 검사를 하지 않아 잘못된 린트 에러가 발생한 이슈이다.**
 
-`require-param` 규칙은 모든 함수의 parameter가 문서화되어야 한다는 규칙이다. 이 규칙은  `checkTypesPattern=/^(?:[oO]bject|[aA]rray|PlainObject|Generic(?:Object|Array))$/`  을 기본값으로 가지고 있는데, 이 패턴에 일치하는 타입일 때 type 체크를 통해 destructuring을 할지 말지 결정한다는 의미로 이해하면 될 것 같다.
+`require-param` 규칙은 모든 함수의 parameter가 문서화되어야 한다는 규칙이다. 이 규칙은  
+
+```js
+checkTypesPattern=/^(?:[oO]bject|[aA]rray|PlainObject|Generic(?:Object|Array))$/
+```  
+
+을 기본값으로 가지고 있는데, 이 패턴에 일치하는 타입일 때 type 체크를 통해 destructuring을 할지 말지 결정한다는 의미로 이해하면 될 것 같다.
 
 ```js
 /** * Description. 
@@ -84,6 +90,7 @@ npm_config_rule=check-param-names npx mocha --inspect-brk -r @babel/register tes
 */ 
 function foo({ a: { b } }) {}
 ```
+
 1. `options` vs `{ a: { b }}` 비교, 타입 검사 (o)
 2. `options.a` vs `{ b }` 비교, 타입 검사 (x)
 
@@ -110,4 +117,4 @@ function foo({ a: { b } }) {}
 ## 소감
 
 - 컨트리뷰션에 필요한 모든 지식과 경험을 컨트리뷰션을 진행하면서 얻었다. OSS 컨트리뷰톤에 합류하게 되면서 ESLint 를 공부하고 사용하기 시작했고, 이슈 해결 과정에서 import/export, jsdoc, js 문법, git rebase 등을 새롭게 얻은 지식이 많다. 나도 이제 오픈소스 컨트리뷰터라는 뿌듯함도 얻고, 동시에 나 자신도 많이 성장할 수 있는 시간이었다. :)
-- 멘토님이 없었더라면,,, 결코 성공하지 못했다. 다시 한 번 너무너무 감사합니다 !!!!! 
+- 멘토님이 없었더라면,,, 결코 성공하지 못했다. 다시 한 번 너무너무 감사합니다 ๑•‿•๑
