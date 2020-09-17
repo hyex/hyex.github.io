@@ -6,6 +6,7 @@ categories: unclassified
 ---
 
 # Asset Management
+https://webpack.js.org/guides/asset-management/
 
 처음부터 가이드를 따랐다면 이제 'Hello webpack'을 표시하는 작은 프로젝트를 갖게됩니다. 이제 이미지와 같
 은 다른 자산을 통합하여 처리 방법을 살펴 보겠습니다.
